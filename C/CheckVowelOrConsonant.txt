@@ -1,0 +1,14 @@
+#include<stdio.h>
+void main(){
+    char ch;
+    int flag = 1;
+    printf("Enter A Character : ");
+    scanf("%c",&ch);
+    if( ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U' || ch == 'a'|| ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'){
+        flag = 0;
+    }
+    if(flag == 1)
+        printf("The Character %c is Consonant",ch);
+    else
+        printf("The Character %c is Vowel",ch);
+}
