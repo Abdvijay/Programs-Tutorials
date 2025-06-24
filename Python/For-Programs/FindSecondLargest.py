@@ -1,12 +1,11 @@
 from numpy import *
-arr = [10,90,23,54,85,47,44]
-
-n = 3
-
-for i in range(1,n+1):
-    max = arr[0]
-    for j in range(1,len(arr)):
-        if max < arr[j] :
-            max = arr[j]
-    arr.remove(max)
-print(max)
+arr = array([1,9,3,7,5])
+arr = sorted(arr)
+max = arr[0]
+temp = max
+for i in range(1,len(arr)):
+    if arr[i] > max:
+        temp = max
+        max = arr[i]
+print("Max : ",max)
+print("Second : ",temp)
