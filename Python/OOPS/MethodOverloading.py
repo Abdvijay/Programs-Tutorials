@@ -1,8 +1,4 @@
 class Student:
-    def __init__(self,m1,m2):
-        self.m1 = m1
-        self.m2 = m2
-    
     def sum(self,a=None,b=None,c=None):
         s = 0
         if a != None and b != None and c != None :
@@ -12,9 +8,6 @@ class Student:
         else:
             s = a
         return s
-    
-    def sum(self,num):
-        print("Hii")
 
-s1 = Student(90,98)
-print(s1.sum(50))
+s1 = Student()
+print(s1.sum(50,43))
