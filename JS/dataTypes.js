@@ -29,6 +29,16 @@ console.log(Number.MAX_VALUE);
 //console.log(bigIntValue + 2); TypeError: Cannot mix BigInt and other types, use explicit conversions
 console.log(bigIntValue + 2n);
 
+let firstName = "Abd";
+let lastName = "Vijay";
+console.log(firstName + " " + lastName);
+console.log("Abd \"Vijay\"");
+
+let number = 10;
+let str = "Vijay";
+console.log(number / str);
+console.log(typeof (number / str)); // NaN (Not a Number) because division by a string is not valid
+
 // JavaScript Data Types
 // 1. Number: Represents both integer and floating-point numbers.
 // 2. String: Represents a sequence of characters enclosed in single or double quotes.
