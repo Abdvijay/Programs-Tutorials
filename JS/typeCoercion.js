@@ -20,8 +20,13 @@ console.log(x, typeof x);
 console.log(!x, typeof !x);
 
 
-console.log(Boolean(5), typeof Boolean(5));
+console.log(Boolean(5), typeof Boolean(5));    
 console.log(Boolean(0), typeof Boolean(0));
+console.log(Boolean("Hello"), typeof Boolean("Hello")); // Non-empty string is truthy
+console.log(Boolean(""), typeof Boolean("")); // Empty string is falsy
+console.log(Boolean([]), typeof Boolean([])); // Empty array is truthy
+console.log(Boolean(null), typeof Boolean(null)); // Null is falsy
+console.log(Boolean(undefined), typeof Boolean(undefined)); // Undefined is falsy
 
 console.log("5" + 2, typeof ("5" + 2)); // String concatenation, results in a string
 console.log("5" - 2, typeof ("5" - 2)); // Numeric subtraction, results in a number
