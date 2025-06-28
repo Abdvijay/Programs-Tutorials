@@ -13,3 +13,6 @@ for (value of number) {
 number.forEach((element) => {
   console.log(element);
 });
+
+let name = new Set("Bookkeeper");
+console.log(name); //Set(6) { 'B', 'o', 'k', 'e', 'p', 'r' }
