@@ -16,3 +16,5 @@ console.log(alien);
 
 delete alien["home loc"];
 console.log(alien);
+
+console.log(Object.keys(alien).length)

@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <title>Class Sample</title>
+</head>
+
+<body>
+    <script>
+        class Cars {
+            constructor(name, year) {
+                this.name = name;
+                this.year = year;
+            }
+            age() {
+                let date = new Date();
+                return date.getFullYear() - this.year;
+            }
+        }
+        function myFunction() {
+            let cars = new Cars("Vijay", 2014);
+            document.getElementById("demo").innerHTML = "My car is " + cars.age() + " years old.";
+        }
+    </script>
+    <center>
+        <p id="demo"></p>
+        <button onclick="myFunction()">Click me</button>
+    </center>
+
+</body>
+
+</html>

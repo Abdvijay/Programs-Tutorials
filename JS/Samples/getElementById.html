@@ -1,0 +1,20 @@
+<html>
+
+<head>
+    <title>Get Element By Id</title>
+</head>
+
+<body>
+    <center>
+        <p id="intro">Finding HTML Elements by Id</p>
+        <p id="demo">Demo</p>
+    </center>
+
+    <script>
+        let element = document.getElementById("intro");
+        document.getElementById("demo").innerHTML = "The text from the intro paragraph is: " + element.innerHTML;
+
+    </script>
+</body>
+
+</html>

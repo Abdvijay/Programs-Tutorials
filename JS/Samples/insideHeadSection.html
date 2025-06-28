@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Inside Head Section</title>
+    </head>
+    <script>
+        function myFunction(){
+            document.getElementById("demo").innerHTML = 'Hi Vijay';
+        }
+        function Revert(){
+            document.getElementById("demo").innerHTML = "Content changed"
+        }
+    </script><body>
+        <p id="demo">This is content</p>
+        <button onclick="myFunction()">Try it</button>
+        <button onclick="Revert()">Revert</button>
+    </body>
+</html>

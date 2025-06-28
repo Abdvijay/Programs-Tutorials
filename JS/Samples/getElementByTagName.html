@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <title>Get Element By Tagname</title>
+</head>
+
+<body>
+    <center>
+        <p>This is first para</p>
+        <p>This is second para</p>
+        <p>This is third para</p>
+        <h2 id="demo"></h2>
+        <button onclick="myFunction()">Click me</button>
+    </center>
+    <script>
+        function myFunction() {
+            const element = document.getElementsByTagName("p");
+            document.getElementById("demo").innerHTML = 'The text in first paragraph (index 1) is: ' + element[1].innerHTML;
+        }
+    </script>
+</body>
+
+</html>

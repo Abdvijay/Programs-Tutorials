@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Get Element By Class Name</title>
+    </head>
+    <body>
+        <center>
+            <p class="intro">This is first class</p>
+            <p class="intro">This is second class</p>
+            <button onclick="ClickMe()">Click Me</button>
+        </center>
+        <script>
+            function ClickMe(){
+                const element = document.getElementsByClassName("intro");
+                element[0].style.color = "red";
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>Object Methods</title>
+</head>
+
+<body>
+    <script>
+        function myFunction() {
+            let person = {
+                firstName: "Abd",
+                lastName: "Vijay",
+                age: 24,
+                fullname: function () {
+                    return this.firstName + " " + this.lastName;
+                }
+            }
+            document.getElementById("demo").innerHTML = person.fullname();
+        }
+    </script>
+    <center>
+        <p id="demo">This is object methods</p>
+        <button onclick="myFunction()">Click Me</button>
+    </center>
+</body>
+
+</html>
