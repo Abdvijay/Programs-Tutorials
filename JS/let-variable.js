@@ -17,3 +17,23 @@ console.log(userName);
 // | `var`   | Function/Global | Allowed       | Allowed                                     |
 // | `let`   | Block Scope     | Not Allowed   | Allowed                                     |
 // | `const` | Block Scope     | Not Allowed   | Not Allowed (except objects/arrays content) |
+
+var a = 10;
+var a = 20;
+console.log(a);
+
+// function test() {
+//     if (true) {
+//         var x = 10;
+//         let y = 20;
+//     }
+//     console.log(x);  // 10 → var is function-scoped
+//     console.log(y); // Error → let is block-scoped
+// }
+// test();
+
+console.log(p);
+var p = 30;
+
+console.log(q);
+let q = 10;
