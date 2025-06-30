@@ -12,7 +12,7 @@ arr.unshift(0);
 console.log(arr); //[ 0, 1, 4, 3 ]
 
 //4.Shift method
-arr.shift(10);
+arr.shift();
 console.log(arr); //[ 1, 4, 3 ]
 
 //5. Length method
