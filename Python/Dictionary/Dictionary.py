@@ -82,3 +82,7 @@ print(my_dict.keys())
 print(my_dict.values())
 print(my_dict.items())
 
+keys = [1,2,3,4]
+values = ["Vijay","Swathi","Essai","Diya"]
+my_dict = dict(zip(keys, values))
+print(my_dict)
