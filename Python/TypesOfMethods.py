@@ -1,3 +1,14 @@
+'''
+| Method Type         | Decorator Used   | Can Access                                    | Common Use                                |
+| ------------------- | ---------------- | --------------------------------------------- | ----------------------------------------- |
+| **Instance Method** | *(no decorator)* | `self` (instance variables & class variables) | Operate on individual object data         |
+| **Class Method**    | `@classmethod`   | `cls` (only class variables)                  | Factory methods, modifying class state    |
+| **Static Method**   | `@staticmethod`  | ❌ (no access to instance/class data)          | Utility/helper functions related to class |
+
+
+'''
+
+
 class Student:
     college = "ABC College"  # class variable
 
