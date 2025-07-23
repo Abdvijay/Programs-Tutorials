@@ -3,7 +3,7 @@
 | ------------------- | ---------------- | --------------------------------------------- | ----------------------------------------- |
 | **Instance Method** | *(no decorator)* | `self` (instance variables & class variables) | Operate on individual object data         |
 | **Class Method**    | `@classmethod`   | `cls` (only class variables)                  | Factory methods, modifying class state    |
-| **Static Method**   | `@staticmethod`  | ❌ (no access to instance/class data)          | Utility/helper functions related to class |
+| **Static Method**   | `@staticmethod`  | ❌ (no access to instance/class data)         | Utility/helper functions related to class |
 
 
 '''
