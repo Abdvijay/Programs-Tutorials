@@ -12,3 +12,5 @@ name varchar(50) not null,
 college varchar(50) not null);
 
 select * from student;
+
+insert into student values ('vijay','hicet'),('swathi','sastra');
