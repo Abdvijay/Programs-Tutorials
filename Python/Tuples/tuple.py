@@ -29,3 +29,14 @@ print(my_tuple.count(15))
 numbers = (10,20,30,40,50)
 print(numbers[2])
 '30'
+
+#Repeat tuple
+tup1 = (10,20,30)
+print(tup1 * 3)
+'(10, 20, 30, 10, 20, 30, 10, 20, 30)'
+
+#Repeat and Concatinate
+tup1 = (10,20)
+tup2 = ('Vijay','Swathi')
+print(tup1*3 + tup2)
+# (10, 20, 10, 20, 10, 20, 'Vijay', 'Swathi')
