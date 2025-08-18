@@ -8,4 +8,4 @@ print(digits)
 
 # ['13', '11', '2000']
 # \d+ matches one or more digits.
-# findall() finds all numbers in the string and gives them as a list: ['45', '30'].
+# findall() finds all numbers in the string and gives them as a list: ['13', '11', '2000'].
