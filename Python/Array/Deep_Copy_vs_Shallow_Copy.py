@@ -1,5 +1,16 @@
-from numpy import *
+#Definition:
 
+# 1. Deep copy : 
+#     1. It is used copy() function.
+#     2. If we update the original array value it cannot reflect at the copied array using copy().
+
+# 2. Shallow copy:
+#     1. It is used view() function.
+#     2. If we update the original array and shallow copy array it will relfect the other array which means if we update original array
+#        it will reflect on copied array or if we update shallow copied array it will relfect the original array.
+#     3. This is the diff between shallow copy and deep copy.
+
+from numpy import *
 
 arr1 = array([1,2,3,4,5])
 arr2 = array([1,2,3,4,5])
