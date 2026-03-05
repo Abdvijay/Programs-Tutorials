@@ -1,0 +1,298 @@
+# -------------------------- SQL-CONTRAINTS -----------------------------
+
+# -------------- PRIMARY KEY -> In this table RIDE_ID must be unique. ------------------
+
+CREATE TABLE RIDES(
+    RIDE_ID INT PRIMARY KEY,
+    DRIVER_ID INT NOT NULL,
+    RIDER_ID INT NOT NULL,
+    PICKUP_LOCATION VARCHAR(100) NOT NULL,
+    DROP_LOCATION VARCHAR(100) NOT NULL,
+    RIDE_DATE DATETIME NOT NULL,
+    FARE DECIMAL(10,2) NOT NULL
+);
+
+INSERT INTO RIDES
+VALUES (1,101,201,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+
+SELECT * FROM RIDES;
+1	101	201	CHENNAI	COIMBATORE	2025-12-29 08:00:00	500.00
+
+INSERT INTO RIDES
+VALUES (2,101,201,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+
+INSERT INTO RIDES
+VALUES (1,101,201,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+#Error Code: 1062. Duplicate entry '1' for key 'rides.PRIMARY'
+
+
+# ----------------------- COMPOSITE PRIMARY KEY -> We can mentioned one or more primark key fields. -----------
+
+CREATE TABLE RIDES(
+    RIDE_ID INT,
+    DRIVER_ID INT NOT NULL,
+    RIDER_ID INT NOT NULL,
+    PICKUP_LOCATION VARCHAR(100) NOT NULL,
+    DROP_LOCATION VARCHAR(100) NOT NULL,
+    RIDE_DATE DATETIME NOT NULL,
+    FARE DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY(RIDE_ID,RIDER_ID)
+);
+
+DESC RIDES;
+
+RIDE_ID	        int	            NO	PRI		
+DRIVER_ID	    int	            NO			
+RIDER_ID	    int	            NO	PRI		
+PICKUP_LOCATION	varchar(100)    NO			
+DROP_LOCATION	varchar(100)	NO			
+RIDE_DATE	    datetime	    NO			
+FARE	        decimal(10,2)	NO			
+
+INSERT INTO RIDES
+VALUES (1,101,201,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+
+SELECT * FROM RIDES;
+1	101	201	CHENNAI	COIMBATORE	2025-12-29 08:00:00	500.00
+
+INSERT INTO RIDES
+VALUES (1,101,202,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+(Already 1 is inserted but it not give any error because it is not considered a duplicate because we mentioned both fields are primary key)
+
+INSERT INTO RIDES
+VALUES (2,101,202,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+
+SELECT * FROM RIDES;
+1	101	201	CHENNAI	COIMBATORE	2025-12-29 08:00:00	500.00
+1	101	202	CHENNAI	COIMBATORE	2025-12-29 08:00:00	500.00
+2	101	202	CHENNAI	COIMBATORE	2025-12-29 08:00:00	500.00
+
+INSERT INTO RIDES
+VALUES (2,101,202,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+(It gives error - Error Code: 1062. Duplicate entry '2-202' for key 'rides.PRIMARY')
+
+# ------------------------------- UNIQUE ---------------------------------------------
+
+NOTE : PRIMARY KEY mentioned fields should not be NULL VALUES and also must be UNIQUE.
+NOTE : UNIQUE mentioned fields may have NULL VALUES and must be UNIQUE.
+
+CREATE TABLE USERS(
+	USER_ID INT PRIMARY KEY,
+    EMAIL VARCHAR(100) UNIQUE
+);
+
+INSERT INTO USERS
+VALUES(1,'user1@example.com');
+
+SELECT * FROM USERS;
+1	user1@example.com
+
+INSERT INTO USERS
+VALUES(2,'user2@example.com');
+
+INSERT INTO USERS
+VALUES(3,NULL);
+
+SELECT * FROM USERS;
+3	
+1	user1@example.com
+2	user2@example.com
+
+INSERT INTO USERS
+VALUES(2,'user2@example.com');
+(Error : duplicate entry)
+
+INSERT INTO USERS
+VALUES(NULL,'abc@gmail.com');
+(Error Code: 1048. Column 'USER_ID' cannot be null)
+
+INSERT INTO USERS
+VALUES(4,'user2@example.com');
+(Error Code: 1062. Duplicate entry 'user2@example.com' for key 'users.EMAIL')
+
+INSERT INTO USERS
+VALUES(4,NULL);
+
+SELECT * FROM USERS;
+3	
+4	
+1	user1@example.com
+2	user2@example.com
+
+# ------------------------- NOT NULL CONTRAINTS ------------------------
+
+NOTE : Once the column mentioned NOT NULL then you always put values for that column
+(NOT NULL mentioned fields cannot be NULL which means that fields doesnot accept NULL values)
+
+CREATE TABLE RIDES(
+    RIDE_ID INT PRIMARY KEY,
+    DRIVER_ID INT NOT NULL,
+    RIDER_ID INT,
+    PICKUP_LOCATION VARCHAR(100) NOT NULL,
+    DROP_LOCATION VARCHAR(100) NOT NULL,
+    RIDE_DATE DATETIME,
+    FARE DECIMAL(10,2)
+);
+
+INSERT INTO RIDES
+VALUES (1,101,201,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+
+# Below query was accepted because we put NULL for those which field doesnot have any NOT NULL constraints. It accepts.
+INSERT INTO RIDES
+VALUES (2,101,NULL,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+
+# Below query was thrown an error - Error Code: 1048. Column 'PICKUP_LOCATION' cannot be null
+INSERT INTO RIDES
+VALUES (3,101,201,NULL,'COIMBATORE','2025-12-29 08:00:00',500.00);
+
+SELECT * FROM RIDES;
+1	101	201	    CHENNAI	COIMBATORE	2025-12-29 08:00:00	500.00
+2	101	NULL	CHENNAI	COIMBATORE	2025-12-29 08:00:00	500.00
+
+# ---------------------------- CHECK CONTRAINTS ----------------------------
+
+DROP TABLE RIDES;
+
+CREATE TABLE RIDES(
+    RIDE_ID INT PRIMARY KEY,
+    DRIVER_ID INT NOT NULL,
+    RIDER_ID INT NOT NULL,
+    PICKUP_LOCATION VARCHAR(100) NOT NULL,
+    DROP_LOCATION VARCHAR(100) NOT NULL,
+    RIDE_DATE DATETIME,
+    FARE DECIMAL(10,2) CHECK (FARE > 0)
+);
+
+INSERT INTO RIDES
+VALUES (1,101,201,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00);
+
+# Below query thrown an error - Error Code: 3819. Check constraint 'rides_chk_1' is violated. Because we already used CHECK condition.
+INSERT INTO RIDES
+VALUES (2,101,201,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',-500.00);
+
+# --------------------------- FOREIGN KEY CONTRAINTS --------------------------
+DROP TABLE RIDES;
+
+CREATE TABLE DRIVERS(
+DRIVER_ID INT PRIMARY KEY,
+DRIVER_NAME VARCHAR(20) NOT NULL,
+LICENSE_NUMBER VARCHAR(20) UNIQUE);
+
+CREATE TABLE RIDES(
+    RIDE_ID INT PRIMARY KEY,
+    DRIVER_ID INT NOT NULL,
+    PICKUP_LOCATION VARCHAR(100) NOT NULL,
+    DROP_LOCATION VARCHAR(100) NOT NULL,
+    RIDE_DATE DATETIME,
+    FARE DECIMAL(10,2) CHECK (FARE > 0),
+    FOREIGN KEY(DRIVER_ID) REFERENCES DRIVERS(DRIVER_ID)
+);
+
+INSERT INTO DRIVERS VALUES
+(101,'VIJAY','ABCD100'),
+(102,'SWATHI','BZXP200');
+
+SELECT * FROM DRIVERS;
+
+INSERT INTO RIDES
+VALUES (1,101,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00),
+(2,101,'COIMBATORE','CHENNAI','2025-12-30 09:00:00',600.00),
+(3,102,'COIMBATORE','CHENNAI','2025-12-30 09:00:00',700.00);
+
+SELECT * FROM RIDES;
+
+# Below query thrown error - Error Code: 1452. Cannot add or update a child row: a foreign key constraint fails (`mysql_tutorial`.`rides`, CONSTRAINT `rides_ibfk_1` FOREIGN KEY (`DRIVER_ID`) REFERENCES `drivers` (`DRIVER_ID`))
+# Because the driver_id which is 999 was not a driver and he is not any more as a driver as per driver table there is no entry as a driver thats why it shows error.
+
+# ------------------- INSERT SCENERIO AS FOREIGN KEY -----------------------
+
+INSERT INTO RIDES(RIDE_ID,DRIVER_ID,PICKUP_LOCATION,DROP_LOCATION,RIDE_DATE,FARE)
+VALUES(4,999,'MADURAI','NELLAI','2025-12-31 09:00:00',900.00);
+
+# ------------------- DELETE SCENERIO AS FOREIGN KEY WITHOUT CASCADE -----------------------
+
+# Below query thrown eror - Error Code: 1451. Cannot delete or update a parent row: a foreign key constraint fails (`mysql_tutorial`.`rides`, CONSTRAINT `rides_ibfk_1` FOREIGN KEY (`DRIVER_ID`) REFERENCES `drivers` (`DRIVER_ID`))
+DELETE FROM DRIVERS WHERE DRIVER_ID = 101;
+
+# SOLUTION
+DELETE FROM RIDES WHERE DRIVER_ID = 101;
+DELETE FROM DRIVERS WHERE DRIVER_ID = 101;
+
+SELECT * FROM DRIVERS;
+
+102	SWATHI	BZXP200
+
+SELECT * FROM RIDES;
+
+3	102	COIMBATORE	CHENNAI	2025-12-30 09:00:00	700.00
+
+# ------------------------ DELETE SCENERIO AS FOREIGN KEY WITH CASCADE ---------------------------
+
+# NOTE : ON DELETE CASCADE delete both child and parent rows
+
+CREATE TABLE DRIVERS(
+    DRIVER_ID INT PRIMARY KEY,
+    DRIVER_NAME VARCHAR(20) NOT NULL,
+    LICENSE_NUMBER VARCHAR(20) UNIQUE
+);
+
+CREATE TABLE RIDES(
+    RIDE_ID INT PRIMARY KEY,
+    DRIVER_ID INT NOT NULL,
+    PICKUP_LOCATION VARCHAR(100) NOT NULL,
+    DROP_LOCATION VARCHAR(100) NOT NULL,
+    RIDE_DATE DATETIME,
+    FARE DECIMAL(10,2) CHECK (FARE > 0),
+    FOREIGN KEY(DRIVER_ID) REFERENCES DRIVERS(DRIVER_ID) ON DELETE CASCADE
+);
+
+INSERT INTO DRIVERS VALUES
+(101,'VIJAY','ABCD100'),
+(102,'SWATHI','BZXP200');
+
+INSERT INTO RIDES
+VALUES(1,101,'CHENNAI','COIMBATORE','2025-12-29 08:00:00',500.00),
+(2,101,'COIMBATORE','CHENNAI','2025-12-30 09:00:00',600.00),
+(3,102,'COIMBATORE','CHENNAI','2025-12-30 09:00:00',700.00);
+
+DELETE FROM DRIVERS WHERE DRIVER_ID = 101;
+SELECT * FROM DRIVERS;
+SELECT * FROM RIDES;
+
+# ------------------------------------- INSTEAD OF DELETE A ROW WE CAN HIDE FROM IT USING FLAG --------------------
+
+ALTER TABLE RIDES
+ADD COLUMN IS_DELETE BOOLEAN DEFAULT FALSE;
+
+SELECT * FROM RIDES;
+
+UPDATE RIDES
+SET
+	IS_DELETE = TRUE
+WHERE DRIVER_ID = 102;
+
+1	101	CHENNAI	    COIMBATORE	2025-12-29 08:00:00	500.00	0
+2	101	COIMBATORE	CHENNAI	    2025-12-30 09:00:00	600.00	0
+3	102	COIMBATORE	CHENNAI	    2025-12-30 09:00:00	700.00	1
+
+# ---------------------------- DEFAULT CONSTRAINTS -------------------------------------
+
+CREATE TABLE DUMMY
+( SNO INT PRIMARY KEY,
+SNAME VARCHAR(100) NOT NULL,
+COUNTRY_CODE VARCHAR(20) DEFAULT 'IND');
+
+DESC DUMMY;
+
+FIELD           TYPE            NULL    KEY     DEFAULT
+SNO	            int	            NO	    PRI		
+SNAME	        varchar(100)	NO			
+COUNTRY_CODE	varchar(20)	    YES		        IND	
+
+INSERT INTO DUMMY(SNO,SNAME) VALUES(100,'VIJAY');
+INSERT INTO DUMMY(SNO,SNAME,COUNTRY_CODE) VALUES(200,'SWATHI','USA');
+
+SELECT * FROM DUMMY;
+
+100	VIJAY	IND
+200	SWATHI	USA
