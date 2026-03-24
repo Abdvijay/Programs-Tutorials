@@ -568,12 +568,13 @@ SELECT 'VIRAT@GMAIL.COM' AS EMAIL,
 SELECT * FROM CUSTOMERS;
 
 SELECT * FROM ORDERS;
-
+DROP TABLE ORDERS;
 CREATE TABLE orders (
     order_id INT PRIMARY KEY,
     customer_id INT,
     order_amount DECIMAL(10,2),
-    order_date DATE
+    order_date DATE,
+    FOREIGN KEY(customer_id) REFERENCES CUSTOMERS(customer_id)
 );
 
 INSERT INTO orders (order_id, customer_id, order_amount, order_date) VALUES
@@ -693,3 +694,52 @@ SELECT * FROM HIGH_EARNERS;
 
 INSERT INTO employees
 VALUES (7, 'john', 'sb', 'mark.taylor@example.com', '2022-11-15', 'Data Engineer',120000.00);
+
+# ----------------------------- JOIN TABLES --------------------------------------
+
+CREATE TABLE RESTAURANTS (
+    ID INT PRIMARY KEY,
+    NAME VARCHAR(50),
+    LOCATION VARCHAR(50)
+);
+
+INSERT INTO RESTAURANTS (ID, NAME, LOCATION) VALUES
+(1, 'ABC Bistro', 'New York'),
+(2, 'The Foodie', 'Los Angeles'),
+(3, 'Tasty Treat', 'Chicago');
+
+CREATE TABLE RESTAURANTS_ORDERS (
+    ORDER_ID INT PRIMARY KEY,
+    RESTAURANT_ID INT,
+    ORDER_DATE DATE
+);
+
+INSERT INTO RESTAURANTS_ORDERS (ORDER_ID, RESTAURANT_ID, ORDER_DATE) VALUES
+(1, 1, '2023-01-01'),
+(2, 1, '2023-01-02'),
+(3, 2, '2023-01-05'),
+(4, 4, '2023-01-07');
+
+# -------------------------------------- JOIN -> INNER JOIN --------------------------------------
+
+SELECT
+	R.NAME AS RESTAURANT_NAME,O.ORDER_DATE AS ORDER_DATE
+FROM RESTAURANTS R
+JOIN RESTAURANTS_ORDERS O
+ON R.ID = O.RESTAURANT_ID;
+
+# ------------------------------------- LEFT JOIN -------------------------------------------------
+
+SELECT
+	R.NAME AS RESTAURANT_NAME,O.ORDER_DATE AS ORDER_DATE
+FROM RESTAURANTS R
+LEFT JOIN RESTAURANTS_ORDERS O
+ON R.ID = O.RESTAURANT_ID;
+
+# ------------------------------------- RIGHT JOIN -------------------------------------------------
+
+SELECT
+	R.NAME AS RESTAURANT_NAME,O.ORDER_DATE AS ORDER_DATE
+FROM RESTAURANTS R
+RIGHT JOIN RESTAURANTS_ORDERS O
+ON R.ID = O.RESTAURANT_ID;

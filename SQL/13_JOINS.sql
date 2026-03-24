@@ -1,0 +1,88 @@
+# ----------------------------- JOIN TABLES --------------------------------------
+
+CREATE TABLE RESTAURANTS (
+    ID INT PRIMARY KEY,
+    NAME VARCHAR(50),
+    LOCATION VARCHAR(50)
+);
+
+INSERT INTO RESTAURANTS (ID, NAME, LOCATION) VALUES
+(1, 'ABC Bistro', 'New York'),
+(2, 'The Foodie', 'Los Angeles'),
+(3, 'Tasty Treat', 'Chicago');
+
+CREATE TABLE RESTAURANTS_ORDERS (
+    ORDER_ID INT PRIMARY KEY,
+    RESTAURANT_ID INT,
+    ORDER_DATE DATE
+);
+
+INSERT INTO RESTAURANTS_ORDERS (ORDER_ID, RESTAURANT_ID, ORDER_DATE) VALUES
+(1, 1, '2023-01-01'),
+(2, 1, '2023-01-02'),
+(3, 2, '2023-01-05'),
+(4, 4, '2023-01-07');
+
+# -------------------------------------- JOIN -> INNER JOIN --------------------------------------
+
+SELECT
+	R.NAME AS RESTAURANT_NAME,O.ORDER_DATE AS ORDER_DATE
+FROM RESTAURANTS R
+JOIN RESTAURANTS_ORDERS O
+ON R.ID = O.RESTAURANT_ID;
+
+ABC Bistro	2023-01-01
+ABC Bistro	2023-01-02
+The Foodie	2023-01-05
+
+# ------------------------------------- LEFT JOIN -------------------------------------------------
+
+SELECT
+	R.NAME AS RESTAURANT_NAME,O.ORDER_DATE AS ORDER_DATE
+FROM RESTAURANTS R
+LEFT JOIN RESTAURANTS_ORDERS O
+ON R.ID = O.RESTAURANT_ID;
+
+ABC Bistro	2023-01-02
+ABC Bistro	2023-01-01
+The Foodie	2023-01-05
+Tasty Treat	
+
+# ------------------------------------- RIGHT JOIN -------------------------------------------------
+
+SELECT
+	R.NAME AS RESTAURANT_NAME,O.ORDER_DATE AS ORDER_DATE
+FROM RESTAURANTS R
+RIGHT JOIN RESTAURANTS_ORDERS O
+ON R.ID = O.RESTAURANT_ID;
+
+ABC Bistro	2023-01-01
+ABC Bistro	2023-01-02
+The Foodie	2023-01-05
+	        2023-01-07
+
+# ------------------------------------- SELF JOIN ------------------------------------------------
+
+CREATE TABLE SELF_JOIN_TABLE(
+	ID INT PRIMARY KEY,
+	NAME VARCHAR(100) NOT NULL,
+    MANAGER_ID INT NULL
+);
+
+INSERT INTO SELF_JOIN_TABLE
+VALUES(1,'VIJAY',3),
+(2,'SWATHI',3),
+(3,'DHEEKSHA',NULL),
+(4,'DIYA',3);
+
+SELECT 
+	F.NAME AS EMPLOYEE_NAME,
+    S.NAME AS MANAGER_NAME
+FROM SELF_JOIN_TABLE F
+LEFT JOIN SELF_JOIN_TABLE S
+ON F.MANAGER_ID = S.ID;
+
+VIJAY	    DHEEKSHA
+SWATHI	    DHEEKSHA
+DHEEKSHA	
+DIYA	    DHEEKSHA
