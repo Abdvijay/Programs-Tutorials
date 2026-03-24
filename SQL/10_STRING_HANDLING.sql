@@ -36,7 +36,7 @@ Arjun Mehta	    11	                    ARJUN MEHTA	                arjun.mehta@e
 Meena Gupta	    11	                    MEENA GUPTA	                meena.gupta@example.com	    Meena Gupta - Mumbai	    Meena 	                        TRIMMING	TRIMMING      	     TRIMMING	****Mumbai	    Mumbai####	    Meena_Gupta	            5	            Meena	                pta	                    iabmuM		                        MEENA_GUPTA
 Karthik Raj	    11	                    KARTHIK RAJ	                karthik.raj@example.com	    Karthik Raj - Chennai	    Karthi	                        TRIMMING	TRIMMING      	     TRIMMING	***Chennai	    Chennai###	    Karthik_Raj	            2	            Karth	                Raj	                    iannehC	        43,213.000	        KARTHIK_RAJ
 
-# -------------------- STRING FUNCTION DEFENITION -------------------------------------------------------------------------------------------
+# -------------------- STRING FUNCTION DEFENITION ---------------------------------------------------------------------------------------------------------------------------------------------
 
 1. LENGTH          -> IT IS USED TO FIND THE LENGTH                          -> LENGTH(FIELD_NAME)                             -> LENGTH(CUSTOMER_NAME) AS LENGTH_OF_CUSTOMER_NAME.
 2. UPPER           -> IT IS USED TO CONVERT UPPER CASE                       -> UPPER(FIELD_NAME)                              -> UPPER(CUSTOMER_NAME) AS CUSTOMER_NAME_IN_UPPERCASE.
@@ -55,3 +55,9 @@ Karthik Raj	    11	                    KARTHIK RAJ	                karthik.raj@e
 15. REVERSE        -> IT IS USED TO REVERSE THE STRING                       -> REVERSE(FIELD_NAME)                            -> REVERSE(CITY) AS REVERSED_CITY.
 16. FORMAT         -> IT IS USED TO FORMATTED THE STRING                     -> FORMAT(FIELD_NAME,COUNT)                       -> FORMAT(PHONE_NUMBER,3) AS FORMATTED_PHONE.
 17. UPPER(REPLACE) -> WE CAN USE NESTED STRING FUNCTION ALSO LIKE THIS       -> UPPER(REPLACE(CUSTOMER_NAME,' ','_')) AS INSIDE_UPPER_REPLACED.
+
+# ----------------------------- EXTRACTING EMAIL -----------------------------------
+
+SELECT 'VIRAT@GMAIL.COM' AS EMAIL,
+	LEFT('VIRAT@GMAIL.COM',INSTR('VIRAT@GMAIL.COM','@')-1) AS FIRST_NAME,
+    SUBSTR('VIRAT@GMAIL.COM',INSTR('VIRAT@GMAIL.COM','@')+1) AS DOMAIN;
