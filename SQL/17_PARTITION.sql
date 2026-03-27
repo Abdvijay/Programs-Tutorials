@@ -154,3 +154,111 @@ SELECT * FROM ORDERS_PARTITION WHERE ORDER_DATE = '2021-07-20';
     }
   }
 }'
+
+# ----------------------------- 2. LIST PARTITION -------------------------
+
+POINTS TO REMEMBER :
+
+    1. HERE PARTITION BY LIST USED TO SEPARATE THE DATA BY DEPARTMENT.
+    2. NOTE -> WHILE IN SELECT QUERY MUST USE THE PARTITION MENTIONED FIELD ONLY THEN ONLY PARTITION WILL WORK OTHER WISE IT WONT.
+    3. FIRST SELECT QUERY USED NON PARTITIONED FIELD SO CHECK THE JSON IT SCAN ALL THE PARTITIONS SO IT TAKES MORE TIME AND LESS PERFORMANCE.
+    4. NEXT SELECT QUERY USED PARTITIONED FIELD WHICH IS DEPARTMENT SO IT SCAN ONLY THE SELECT VALUES ONLY NOT FULL SCAN SO IMPROVES PERFORMANCE AND LOOK AT THE TIME.
+    5. SEE THE DIFF B/W WITH OR WITHOUT PARTITION AT JSON FORMAT IT SHOWS THE DIFF.
+
+CREATE TABLE EMPLOYEES_LIST_PARTITION(
+	EMPLOYEE_ID INT AUTO_INCREMENT,
+	FIRST_NAME VARCHAR(50),
+	LAST_NAME VARCHAR(50),
+	DEPARTMENT VARCHAR(50),
+    PRIMARY KEY(EMPLOYEE_ID,DEPARTMENT)
+)
+PARTITION BY LIST COLUMNS(DEPARTMENT) (
+	PARTITION SALES_TEAM VALUES IN ('SALES'),
+	PARTITION HR_TEAM VALUES IN ('HR'),
+	PARTITION ENG_TEAM VALUES IN ('ENGINEERING', 'DEVOPS'),
+	PARTITION OTHERS_TEAM VALUES IN ('FINANCE', 'MARKETING', 'OPERATIONS')
+);
+
+INSERT INTO EMPLOYEES_LIST_PARTITION(FIRST_NAME, LAST_NAME, DEPARTMENT)
+VALUES
+('ALICE', 'SMITH', 'SALES'),
+('BOB', 'JOHNSON', 'HR'),
+('CHARLIE', 'LEE', 'ENGINEERING'),
+('DIANA', 'LOPEZ', 'DEVOPS'),
+('EVE','TURNER','Marketing');
+
+EXPLAIN FORMAT = JSON
+SELECT * FROM EMPLOYEES_LIST_PARTITION WHERE FIRST_NAME = 'BOB';
+
+'{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "1.50"
+    },
+    "table": {
+      "table_name": "EMPLOYEES_LIST_PARTITION",
+      "partitions": [
+        "SALES_TEAM",
+        "HR_TEAM",
+        "ENG_TEAM",
+        "OTHERS_TEAM"
+      ],
+      "access_type": "ALL",
+      "rows_examined_per_scan": 5,
+      "rows_produced_per_join": 1,
+      "filtered": "20.00",
+      "cost_info": {
+        "read_cost": "1.40",
+        "eval_cost": "0.10",
+        "prefix_cost": "1.50",
+        "data_read_per_join": "616"
+      },
+      "used_columns": [
+        "EMPLOYEE_ID",
+        "FIRST_NAME",
+        "LAST_NAME",
+        "DEPARTMENT"
+      ],
+      "attached_condition": "(`mysql_tutorial`.`employees_list_partition`.`FIRST_NAME` = ''BOB'')"
+    }
+  }
+}'
+
+SELECT * FROM EMPLOYEES_LIST_PARTITION WHERE DEPARTMENT IN ('SALES','DEVOPS');
+
+EXPLAIN FORMAT = JSON
+SELECT * FROM EMPLOYEES_LIST_PARTITION WHERE DEPARTMENT IN ('SALES','DEVOPS');
+
+'{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "0.80"
+    },
+    "table": {
+      "table_name": "EMPLOYEES_LIST_PARTITION",
+      "partitions": [
+        "SALES_TEAM",
+        "ENG_TEAM"
+      ],
+      "access_type": "ALL",
+      "rows_examined_per_scan": 3,
+      "rows_produced_per_join": 1,
+      "filtered": "50.00",
+      "cost_info": {
+        "read_cost": "0.65",
+        "eval_cost": "0.15",
+        "prefix_cost": "0.80",
+        "data_read_per_join": "924"
+      },
+      "used_columns": [
+        "EMPLOYEE_ID",
+        "FIRST_NAME",
+        "LAST_NAME",
+        "DEPARTMENT"
+      ],
+      "attached_condition": "(`mysql_tutorial`.`employees_list_partition`.`DEPARTMENT` in (''SALES'',''DEVOPS''))"
+    }
+  }
+}'
