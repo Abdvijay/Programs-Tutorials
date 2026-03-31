@@ -33,7 +33,7 @@ EXPLAIN
 SELECT * FROM CUSTOMERS_INDEX WHERE EMAIL = 'john@example.com';
 
 ID      SELECT_TYPE     TABLE               PARTITIONS      TYPE   POSSIBLE_KEYS      KEY         KEY_LEN     REF     ROWS      FILDERED      EXTRA
-1	    SIMPLE	        CUSTOMERS_INDEX		                ref	   IDX_EMAIL	      IDX_EMAIL   402	      const	  1	        100.00	
+1	      SIMPLE	        CUSTOMERS_INDEX		                  ref	   IDX_EMAIL	        IDX_EMAIL   402	        const	  1	        100.00	
 
 EXPLAIN ANALYZE
 SELECT * FROM CUSTOMERS_INDEX WHERE EMAIL = 'john@example.com';

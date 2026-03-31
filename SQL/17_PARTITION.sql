@@ -13,7 +13,7 @@ CREATE TABLE ORDERS_PARTITION (
 	ORDER_DATE DATE NOT NULL,
 	CUSTOMER_NAME VARCHAR(50),
 	AMOUNT DECIMAL(10,2),
-    PRIMARY KEY(ORDER_ID,ORDER_DATE)
+  PRIMARY KEY(ORDER_ID,ORDER_DATE)
 )
 PARTITION BY RANGE (YEAR (ORDER_DATE)) (
 	PARTITION PARTITION_BEFORE_2020 VALUES LESS THAN (2020),
@@ -42,11 +42,11 @@ SELECT
 FROM INFORMATION_SCHEMA.PARTITIONS
 WHERE TABLE_SCHEMA = 'MYSQL_TUTORIAL' AND TABLE_NAME = 'ORDERS_PARTITION';
 
-PARTITION_AFTER_2022	RANGE	year(`order_date`)		NULL    NULL
+PARTITION_AFTER_2022	  RANGE	year(`order_date`)		NULL    NULL
 PARTITION_2022	        RANGE	year(`order_date`)		NULL    NULL
 PARTITION_2021	        RANGE	year(`order_date`)		NULL    NULL
 PARTITION_2020	        RANGE	year(`order_date`)		NULL    NULL
-PARTITION_BEFORE_2020	RANGE	year(`order_date`)		NULL    NULL
+PARTITION_BEFORE_2020	  RANGE	year(`order_date`)		NULL    NULL
 
 SHOW CREATE TABLE ORDERS_PARTITION;
 
@@ -71,7 +71,7 @@ NOTE : BELOW QUERY JUST DISPLAY THE DATA WITHOUT USING PARITIONS. LOOK AT THE JS
 SELECT * FROM ORDERS_PARTITION WHERE YEAR(ORDER_DATE) = 2021;
 
 ORDER_ID    ORDER_DATE  CUSTOMER_NAME   AMOUNT
-4	        2021-07-20	DIANA	        150.75
+4	          2021-07-20	DIANA	          150.75
 
 EXPLAIN FORMAT = JSON
 SELECT * FROM ORDERS_PARTITION WHERE YEAR(ORDER_DATE) = 2021;
@@ -118,7 +118,7 @@ NOTE : BUT BELOW QUERY USED THE PARITIONS AS WELL. LOOK AT THE JSON IT JUST SCAN
 SELECT * FROM ORDERS_PARTITION WHERE ORDER_DATE = '2021-07-20';
 
 ORDER_ID    ORDER_DATE  CUSTOMER_NAME   AMOUNT
-4	        2021-07-20	DIANA	        150.75
+4	          2021-07-20	DIANA	          150.75
 
 EXPLAIN FORMAT = JSON
 SELECT * FROM ORDERS_PARTITION WHERE ORDER_DATE = '2021-07-20';
@@ -259,6 +259,121 @@ SELECT * FROM EMPLOYEES_LIST_PARTITION WHERE DEPARTMENT IN ('SALES','DEVOPS');
         "DEPARTMENT"
       ],
       "attached_condition": "(`mysql_tutorial`.`employees_list_partition`.`DEPARTMENT` in (''SALES'',''DEVOPS''))"
+    }
+  }
+}'
+
+# --------------------------------- HASH PARTITIONS ---------------------------------
+
+POINTS TO REMEMBER :
+
+    1. HERE HASH HOW ITS WORK ? FIRST OF WE GAVE NUMBER AT PARTITION HERE WE GAVE 2.
+    2. AND PARTITION MENTIONED FOR SENSOR_ID SO WHILE INSERTING FIRST ROW CHECK THE SENSOR_ID AND MODULO THAT BY 2 AND TAKE THE REMAINDER AND CREATED PARTITION P0,P1 AUTOMATICALLY.
+    3. FIRST ROW -> 101 % 2 -> IT GOES P1 PARTITION.
+    4. SECOND ROW -> 102 % 2 -> IT GOES P0 PARTITION LIKE WISE ALL THE INSERTED ROWS.
+    5. AND CHECK THE JSON FORMAT AT PARTITION FIELD TO UNDERSTAND THIS P0,P1 FOR EACH ROW.
+
+CREATE TABLE SENSOR_DATA_HASH_PARTITION(
+	SENSOR_ID INT NOT NULL,
+    READING_TIME DATETIME NOT NULL,
+    READING_VALUE DECIMAL(10,2),
+    PRIMARY KEY(SENSOR_ID, READING_TIME)
+)
+PARTITION BY HASH(SENSOR_ID) PARTITIONS 2;
+
+INSERT INTO SENSOR_DATA_HASH_PARTITION (SENSOR_ID, READING_TIME, READING_VALUE)
+VALUES
+(101, '2025-01-01 10:00:00', 23.50),
+(102, '2025-01-01 10:05:00', 24.10),
+(103, '2025-01-01 10:10:00', 22.75),
+(104, '2025-01-01 10:15:00', 25.00),
+(105, '2025-01-01 10:20:00', 20.00),
+(106, '2025-01-01 10:25:00', 21.60);
+
+EXPLAIN FORMAT = JSON
+SELECT * FROM SENSOR_DATA_HASH_PARTITION WHERE SENSOR_ID = 101;
+
+'{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "0.35"
+    },
+    "table": {
+      "table_name": "SENSOR_DATA_HASH_PARTITION",
+      "partitions": [
+        "p1"
+      ],
+      "access_type": "ref",
+      "possible_keys": [
+        "PRIMARY"
+      ],
+      "key": "PRIMARY",
+      "used_key_parts": [
+        "SENSOR_ID"
+      ],
+      "key_length": "4",
+      "ref": [
+        "const"
+      ],
+      "rows_examined_per_scan": 1,
+      "rows_produced_per_join": 1,
+      "filtered": "100.00",
+      "cost_info": {
+        "read_cost": "0.25",
+        "eval_cost": "0.10",
+        "prefix_cost": "0.35",
+        "data_read_per_join": "16"
+      },
+      "used_columns": [
+        "SENSOR_ID",
+        "READING_TIME",
+        "READING_VALUE"
+      ]
+    }
+  }
+}'
+
+EXPLAIN FORMAT = JSON
+SELECT * FROM SENSOR_DATA_HASH_PARTITION WHERE SENSOR_ID = 102;
+
+'{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "0.35"
+    },
+    "table": {
+      "table_name": "SENSOR_DATA_HASH_PARTITION",
+      "partitions": [
+        "p0"
+      ],
+      "access_type": "ref",
+      "possible_keys": [
+        "PRIMARY"
+      ],
+      "key": "PRIMARY",
+      "used_key_parts": [
+        "SENSOR_ID"
+      ],
+      "key_length": "4",
+      "ref": [
+        "const"
+      ],
+      "rows_examined_per_scan": 1,
+      "rows_produced_per_join": 1,
+      "filtered": "100.00",
+      "cost_info": {
+        "read_cost": "0.25",
+        "eval_cost": "0.10",
+        "prefix_cost": "0.35",
+        "data_read_per_join": "16"
+      },
+      "used_columns": [
+        "SENSOR_ID",
+        "READING_TIME",
+        "READING_VALUE"
+      ]
     }
   }
 }'
