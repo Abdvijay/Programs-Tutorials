@@ -1312,3 +1312,52 @@ SELECT EVENT_NAME,EVENT_DATE, DATE_FORMAT(EVENT_DATE, '%H:%i %p') AS 24_HOURS_TI
 SELECT EVENT_NAME,EVENT_DATE, DATE_FORMAT(EVENT_DATE, '%h:%i %p') AS 12_HOURS_TIME_FORMAT FROM EVENTS_DATE_TIME;
 
 SELECT EVENT_NAME,EVENT_DATE,DATE_FORMAT(EVENT_DATE, '%W, %D %M %Y, %h:%i %p') AS EVENT_DATE_TIME_FORMATTED FROM EVENTS_DATE_TIME;
+
+# ------------------------------------------ REGEX ---------------------------------------------------
+
+CREATE TABLE REGEX_SAMPLES(
+	ID INT AUTO_INCREMENT PRIMARY KEY,
+    SAMPLE_TEXT VARCHAR(100)
+);
+
+INSERT INTO REGEX_SAMPLES(SAMPLE_TEXT) VALUES
+('APPLE'),('BANANA'),('CHERRY'),('DATE'),('ELDERBERRY'),('FIG'),('GRAPE'),('HONEYDEW'),('RUNNING'),('123ABC');
+
+SELECT * FROM REGEX_SAMPLES;
+
+SELECT * FROM REGEX_SAMPLES WHERE SAMPLE_TEXT REGEXP '^A';
+SELECT * FROM REGEX_SAMPLES WHERE SAMPLE_TEXT REGEXP 'ING$';
+SELECT * FROM REGEX_SAMPLES WHERE SAMPLE_TEXT REGEXP '^[0-9]';
+SELECT * FROM REGEX_SAMPLES WHERE SAMPLE_TEXT REGEXP '(.)\\1';
+SELECT * FROM REGEX_SAMPLES WHERE SAMPLE_TEXT REGEXP '^[A-Za-z]+$';
+SELECT * FROM REGEX_SAMPLES WHERE SAMPLE_TEXT REGEXP '^.{5}$';
+SELECT * FROM REGEX_SAMPLES WHERE SAMPLE_TEXT REGEXP '^(APPLE|BANANA)$';
+SELECT * FROM REGEX_SAMPLES WHERE SAMPLE_TEXT REGEXP '^[0-9]{3}[A-Z]+$';
+
+CREATE TABLE REGEX_DEMO (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	full_name VARCHAR(50),
+	phone VARCHAR(25),
+	email VARCHAR(100),
+	date_col VARCHAR(10),
+	status VARCHAR(20),
+	sku VARCHAR(20),
+	username VARCHAR(30),
+	notes VARCHAR(100)
+);
+
+INSERT INTO REGEX_DEMO (full_name, phone, email, date_col, status, sku, username, notes)
+VALUES
+('John Smith','123-456-7890','john@example.com','2025-02-07','pending','ABCD','johnsmith','Ships to CA'),
+('Alice Johnson','(987) 654-3210','alice@@example.net','2025-02-07','inactive','SKU-123','alice','NY location'),
+('Bob Williams','+1-555-123-4567','bob@sample.org','20250207','complete','1SKU','bob123','Shipping to CA'),
+('Mary 1 White','(123) 123-4567','mary123@example.com','2025-13-31','PENDING','abc-999','mary_white','Something about CA or'),
+('Mark-Spencer','1234567890','mark@example.com','2024-11-02','active','SKU-9999','mark','Random note'),
+('Jane O''Connor','1987-654-3210','jane.o.connor@example.org','2024-12-31','inactive','ABCDE','JaneO','Contains CA or NY'),
+('Invalid Mail','000-000-0000','invalid@@example..com','2023-01-15','inactive','XYZeee','invalid','Double and dots'),
+('NoSpacesHere','+12-345-678-9012','nospaces@example.co','2025-02-07','pending','SKU999','NoSpaces','Ends with.co domain');
+
+SELECT * FROM REGEX_DEMO;
+
+SELECT ID,FULL_NAME,DATE_COL FROM REGEX_DEMO WHERE DATE_COL REGEXP '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$'; # DISPLAYING ONLY VALID DATE FORMAT ('YYYY-MM-DD')
+SELECT ID,FULL_NAME,DATE_COL FROM REGEX_DEMO WHERE DATE_COL REGEXP '^[A-Za-z]+$'; # MATCHES NAMES CONTAINING ONLY LETTERS AND SPACES
