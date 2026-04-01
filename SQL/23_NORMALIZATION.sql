@@ -1,29 +1,15 @@
 # ------------------------------ NORMALIZATION ----------------------------------------
 
-Normalization in SQL is a systematic process of organizing the columns (attributes) and tables (relations) of a relational database to minimize data redundancy 
-and improve data integrity. In simpler terms, normalization helps ensure that each piece of data is stored in the best possible place, 
-reducing duplication and making it easier to maintain and update the database.
+# ------------------------------- NORMALIZATION ----------------------------------
 
-Why Normalize?
-Reduce Data Redundancy: Storing the same data multiple times can waste space and cause inconsistencies if that data needs to change.
-Improve Data Integrity: Ensures that your data follows certain rules, preventing errors.
-Make Maintenance Easier: Updates, deletions, and insertions become simpler and more efficient when data is well-organized.
+# NOTES : 
 
-Common Normal Forms
-The most commonly taught normal forms are:
+# 1. NORMALIZATION IN SQL IS A SYSTAMATIC PROCESS OF ORGANIZING COLUMNS AND TABLES AND REDUCES THE REDUNDANCY AND IMPROVES THE INTEGRITY.
+# TYPES - 1NF,2NF,3NF
 
-First Normal Form (1NF)
-Second Normal Form (2NF)
-Third Normal Form (3NF)
-
-(There are higher normal forms like 4NF and 5NF, but they are more specialized and not always required for most practical applications. 
-Typically, going up to 3NF or BCNF is sufficient.)
-
-
-1. First Normal Form (1NF)
-Definition & Purpose (1NF)
-1NF requires that every column holds only atomic (indivisible) values and that there are no repeating groups.
-Purpose: To ensure each field contains a single piece of data.
+# 1. 1NF - FIRST NORMAL FORM
+#	     - EVERY COLUMN HOLDS ONLY ATOMIC VALUES(SINGLE VALUES) AND THAT THERE ARE NO REPEATING GROUPS.
+#		 - SIMPLY SAYS THAT EACH FIELD CONTAINS SINGLE PIECE OF DATA.
 
 Before 
 -- Non-1NF Table: contains multi-valued phone_numbers in a single column
@@ -66,11 +52,10 @@ VALUES (1, '123-4567'),
        (1, '987-6543'),
        (2, '555-1212');
 
-
-2. Second Normal Form (2NF)
-Definition & Purpose (2NF)
-2NF requires the table to be in 1NF and that all non-key columns are fully functionally dependent on the entire primary key.
-Purpose: To remove partial dependencies (where a column depends on only part of a composite key).
+# 2. 2NF - SECOND NORMAL FORM
+#		 - IT REQUIRES THE TABLE SHOULD SATISFY THE 1NF.
+#		 - ALL NON KEY COLUMNS FULLY FUNCTIONALLY DEPENDENT ON THE ENTIRE PRIMARY KEY.
+# 		 - SIMPLY SAYS THAT TO REMOVE PARTIAL DEPENDENCY.
 
 Before 
 -- This table is in 1NF but not in 2NF because course details depend only on course_id.
@@ -118,12 +103,10 @@ VALUES (1, 101),
        (2, 101),
        (1, 102);
 
-
-3. Third Normal Form (3NF)
-Definition & Purpose (3NF)
-3NF requires that the table is in 2NF and that all the columns are directly dependent on the primary key 
-(i.e., no transitive dependencies).
-Purpose: To remove transitive dependencies where a non-key column depends on another non-key column.
+# 3. 3NF - THIRD NORMAL FORM
+#		 - IT MUST SATISFY 2NF.
+# 		 - NO TRANSITIVE DEPENDENCY.
+#		 - SIMPLY SAYS THAT TO REMOVE TRANSITIVE DEPENDENCY WHERE A NON KEY COLUMN DEPENDS ON ANOTHER NON KEY COLUMN.
 
 Before
 
