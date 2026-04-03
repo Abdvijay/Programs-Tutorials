@@ -1,5 +1,10 @@
 # -------------------------- SUB QUERIES -----------------------------
 
+# NOTE : QUERY INSIDE ANOTHER QUERY CALLED SUB-QUERY OR NESTED QUERY.
+# 		 SUB-QUERY IN WHERE CLAUSE
+# 		 1. SINGLE ROW SUB-QUERY - WORK WITH OPERATORS SUCH AS >,<,>=,<=,=,!=
+# 		 2. MULTI ROW SUB-QUERY  - WORK WITH OPERATORS SUCH AS IN,ALL,ANY
+
 CREATE TABLE orders (
     order_id INT PRIMARY KEY,
     customer_id INT,
