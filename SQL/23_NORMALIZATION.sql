@@ -1,7 +1,5 @@
 # ------------------------------ NORMALIZATION ----------------------------------------
 
-# ------------------------------- NORMALIZATION ----------------------------------
-
 # NOTES : 
 
 # 1. NORMALIZATION IN SQL IS A SYSTAMATIC PROCESS OF ORGANIZING COLUMNS AND TABLES AND REDUCES THE REDUNDANCY AND IMPROVES THE INTEGRITY.
