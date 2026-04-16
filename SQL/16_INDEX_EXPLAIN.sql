@@ -19,8 +19,7 @@ CREATE INDEX IDX_EMAIL ON CUSTOMERS_INDEX(EMAIL);
 
 INSERT INTO CUSTOMERS_INDEX(FIRST_NAME, LAST_NAME, EMAIL, CITY)
 VALUES
-(
-'John', 'Doe', 'john@example.com', 'New York'),
+('John', 'Doe', 'john@example.com', 'New York'),
 ('Jane', 'Smith', 'jane.smith@example.com', 'Los Angeles'),
 ('Michael', 'Brown', 'michael.brown@example.com', 'Chicago'),
 ('Emily', 'Johnson', 'emily.johnson@example.com', 'Houston'),
