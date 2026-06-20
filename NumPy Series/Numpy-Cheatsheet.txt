@@ -1,0 +1,152 @@
+Interview Questions : 
+
+1. What is NumPy?
+
+    - NumPy stands for Numerical Python
+    - NumPy is an open source python library.
+    - Mostly used for (Numerical manipulation, Scientific computing, Machine learning, etc.)
+
+2. Why NumPy Instead of Python Lists?
+
+    - NumPy arrays consume less memory and execute operations much faster than Python lists.
+    - Because they store homogeneous data and use optimized C implementations internally.
+
+    ex : 
+    
+    1. Normal list -> lst = [1,2,3,4,5]
+    2. NumPy       ->
+    import numpy as np 
+    arr = np.array([1,2,3,4,5])
+
+3. What is vectorization?
+
+    - Without loops.
+
+# Episode - 1 :
+
+1. import numpy as np                                             -> Need to import in header.
+2. arr = np.array([1,2,3,4,5])                                    -> Way to create an NumPy array.
+3. print(arr+brr)                                                 -> It added two array element by element not merging as Python list.
+4. print(arr*3)                                                   -> It multiplies 3 to every element not replicating like Python list.
+5. type(arr)                                                      -> Check the type of variable.
+
+# Episode - 2 :
+
+1. arr.dtype                                                      -> It gives types of an array.
+2. int32(default)                                                 -> While creating an NumPy array if type are not mentioned defaultly choosed int32.
+3. arr = np.array([1,2,3], dtype = np.int16)                      -> We can set manually data type also.
+4. arr.nbytes                                                     -> It gives the bytes count of an array.
+5. dtype = np.float32                                             -> Floating point data type.
+6. dtype = np.str_                                                -> String data type.
+7. dtype = np.bool_                                               -> Boolean data type.
+8. dtype = np.object_                                             -> Object data type.
+9. [1, 4.0, True, "Vijay"]                                        -> <U32 (String data type choosed)
+10. arr.astype(np.str_)                                           -> Type conversion also possible.
+
+# Episode - 3 :
+
+1. Only 1 element                                                 -> 0 dimension (1)
+2. Only 1 element inside array                                    -> 1 dimension ([1,2,3,4,5,6],[1],[])
+3. Collections of elements(array)                                 -> 2 dimension ([rows,columns]) -> [[1,2,3],[4,5,6]]
+4. Collections of arrays                                          -> 3 dimension ([rows, columns, layers]) -> [[[1,2,3],[4,5,6]],[[1,2,3],[4,5,6]]]
+5. arr.ndim                                                       -> Checking dimension of an array.
+6. arr[0][1]                                                      -> Indexing (1st row, 2nd column) for 2D
+7. arr[0][0][0]                                                   -> Indexing (1st row, 1st column, 1st layer) for 3D
+8. arr[1,2,3]                                                     -> Chain indexing available in NumPy.
+9. arr.shape                                                      -> It gives shape of an array.
+10. arr = arr.reshape(2,2,3)                                      -> Reshape the exisiting array.
+11. arr = arr.reshape(3,-1)                                       -> Defaultly provide new array with 3 rows but columns count automatically split it.
+12. arr = arr.reshape(-1, 3)                                      -> Defaultly provide new array with 3 columns.
+
+# Episode - 4 :
+
+1. arr[1]                                                         -> 1st row printing.
+2. arr[-1]                                                        -> Last row printing (Negative indexing also supports).
+3. arr[1,1]                                                       -> 2nd row 2nd value.
+4. arr[1:]                                                        -> Start from 1st row and till all rows.
+5. arr[:]                                                         -> Start to end slicing.
+6. arr[0:3:2]                                                     -> from the start and ending and skips 2 rows.
+7. arr[::]                                                        -> It should go from front to end.
+8. arr[::-1]                                                      -> Reverse the array.
+9. arr[:,0:2:1]                                                   -> Column slicing.
+10. arr[::,::-1]                                                  -> Reverse column wise.
+11. arr[0:2:1,0:2:1]                                              -> Top left of an array of 3x3.
+12. arr[0:2:1,1:3:1]                                              -> Top right of an array of 3x3.
+13. arr[1:3:1,0:2:1]                                              -> Bottom left of an array of 3x3.
+14. arr[1:3:1,1:3:1]                                              -> Bottom right of an array of 3x3.
+15. arr[1:3:1,1:3:1]                                              -> Center part of an array of 4x4.
+
+# Episode - 5 :
+
+1. arr + 100                                                      -> Adding 100 to all elements in an array.
+2. np.sqrt(arr)                                                   -> Finding square root for every element in an array.
+3. np.round(arr)                                                  -> Rounding all elements in an array.
+4. np.floor(arr)                                                  -> Floor all elements in an array.
+5. np.ceil(arr)                                                   -> Ceil all elements in an array.
+6. arr + brr                                                      -> Adding two array instead of merging.
+7. arr * brr                                                      -> Multiplying every correspondant elements in array.
+8. np.pi                                                          -> Pi value.
+9. print(arr > 50)                                                -> [20,32,55,65] -> [False False True True]
+10. arr[arr<50] = 100                                             -> [20,32,55,65] -> [100,100,55,65]
+
+# Episode - 6 :
+
+1. arr * brr                                                      -> 3x3 array multiply.
+2. arr(1,3) * brr(3,3)                                            -> Broadcast the 1st row for other rows. [1,2,3] initially then -> [[1,2,3],[1,2,3],[1,2,3]].
+3. arr(3,1) * brr(3,3)                                            -> Broadcast the 1st column for other columns.
+4. arr(1,3) * brr(3,1)                                            -> Here every matrix matches their other matrix shape itself.
+5. arr(1,2) * brr(3,1)                                            -> ValueError: operands could not be broadcast together with shapes (3,3) (3,2).
+
+# Episode - 7 :
+
+1. zeros = np.zeros((5))                                          -> [0. 0. 0. 0. 0.]
+2. zeros = np.zeros((2,2))                                        -> [[0. 0.], [0. 0.]]
+3. ones = np.ones((2))                                            -> [1.0 1.0]
+4. ones = np.array(ones, dtype = np.str_)                         -> ['1.0' '1.0']
+5. twos = np.full((2),2)                                          -> [2 2]
+6. fives = np.full((2,2), 100)                                    -> [[100 100], [100 100]]
+7. eyes = np.eye(2)                                               -> [[1. 0.],[0. 1.]]
+8. eyes = np.eye(1)                                               -> [1.]
+9. arr = np.empty((2,3))                                          -> [[2.12199579e-312 2.12199579e-312 2.12199579e-312],[2.12199579e-312 2.12199579e-312 2.12199579e-312]]
+10. hun = np.arange(0,100,8)                                      -> [ 0  8 16 24 32 40 48 56 64 72 80 88 96] ( Note : 100 Excluded - provide values with skipping (3rd argument) )
+11. lin = np.linspace(0,100,6)                                    -> [  0.  20.  40.  60.  80. 100.] ( Note : 100 Included - split into mentioned part (3rd argument))
+12. maxi = np.max(arr) or arr.max()                               -> Finding maximum of an array.
+13. mini = np.min(arr) or arr.min()                               -> Finding minimum of an array.
+14. aver = np.mean(arr) or arr.mean()                             -> Finding average of an array.
+15. med = np.median(arr) or arr.median()                          -> Finding median of an array.
+16. sums = np.sum(arr) or arr.sum()                               -> Finding total of an array.
+17. std = np.std(arr) or arr.std()                                -> Finding stardard deviation of an array.
+18. var = np.var(arr) or arr.var()                                -> Finding variance of an array.
+19. rows = np.sum(arr, axis = 1)                                  -> Finding row wise sum of an array -> [[1,2,3],[4,5,6]] -> [6 15].
+20. cols = np.sum(arr, axis = 0)                                  -> Finding col wise sum of an array -> [[1,2,3],[4,5,6]] -> [5 7 9].
+
+# Episode - 8 :
+
+1. fil = arr[arr <= 50]                                           -> Providing less than values -> [59,23,90,34,67] -> [23 34].
+2. fil = arr[(arr <= 50) & (arr % 2 == 0)]                        -> [59,23,90,34,67] -> [34].
+3. fil = arr[arr % 2 == 0]                                        -> Providing bool values -> [59,23,90,34,67] -> [False False  True  True False].
+4. mat = arr[arr % 2 == 0] (2x3)                                  -> Providing flatten result for matrix -> [[1,2,3],[4,5,6]] -> [2 4 6].
+5. mat = np.where(arr % 2 == 0, arr, -1)                          -> Providing same matrix format with applied condition -> [[1,2,3],[4,5,6]] -> [[-1 2 -1],[4 -1 6]].
+
+# Episode - 9 :
+
+1. rng = np.random.default_rng().integers(1,31)                   -> It provides any integers between these values -> 7.
+2. rng = np.random.default_rng().integers(low=1,high=31,size=5)   -> It provides size of integers between these values -> [ 1 22  7 16 11].
+3. rng = np.random.default_rng().integers(1,31,size=(2,2))        -> It provides 2x2 matrix between these internally -> [[1 23], [22 7]].
+4. rng = np.random.default_rng(seed=23).integers(1,32,size=(2,2)) -> It always provides same random numbers matrix -> [[1 23], [22 7]].
+5. rng = np.random.uniform(low=1, high=20)                        -> It provides floating points random numbers -> 17.73075979917013.
+6. rng = np.random.default_rng().shuffle(arr)                     -> It shuffles an given array -> ["vijay","dheeksha","swathi","diya","shenba"] -> ['dheeksha' 'swathi' 'diya' 'vijay' 'shenba'].
+7. rng = np.random.default_rng().choice(arr)                      -> It provides only one values from an array randomly -> vijay.
+
+# Episode - 10 :
+
+1. import os                                                      -> While working files we need to import os must.
+2. os.getcwd()                                                    -> It gives the current working folder path -> C:\Users\My_Sowriyam\Code io - NumPy.
+3. np.save('data.npy',arr)                                        -> It saves an array in mentioned file.
+4. read = np.load('data.npy')                                     -> It retrieves an file.
+5. np.savez('merged.npz', arr, brr)                               -> It merged two array in one file.
+6. read = np.load('merged.npz')                                   -> It returns an object -> NpzFile 'merged.npz' with keys: arr_0, arr_1.
+7. read["arr_0"]                                                  -> It returns first array.
+8. np.matmul(arr, brr)                                            -> Matrix Multiplication as Linear algebra -> [[1,2],[4,5]], [[4,5],[7,8]] -> [[18 21], [51 60]].
+9. np.dot(arr,brr)                                                -> It multiplies and adding each multiplied values -> [1,2,3], [1,2,3] -> 14 (1x1 + 2x2 + 3x3).
+10. arr.T                                                         -> Transpose of a matrix -> [[1,2], [3,4]] -> [[1,3], [2,4]].
