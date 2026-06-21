@@ -1,0 +1,133 @@
+What is Pandas ?
+
+    - Pandas is an open-source Python library used for:
+    - Data Analysis
+    - Data Manipulation
+    - Data Cleaning
+    - Reading and Writing Data
+
+Why Pandas ?
+
+    - Easy filtering
+    - Easy Cleaning
+    - Easy Analysis
+    - Supports csv, json, excel.
+
+What are the Main Data Structures in Pandas?
+
+    - Seris - One dimensional data.
+    - Data frame - tablur data.
+
+# Episode - 1 :
+
+1. Pandas                                                                   -> Panal Data.
+2. Built on using                                                           -> NumPy (Python library).
+3. Series                                                                   -> 1D array - > [1,2,3,4,5]
+4. Dataframe                                                                -> Tablur format data -> Excel, speadsheet.
+5. using                                                                    -> Storing, Manipulation, Import and Export, Etc.
+6. import pandas as pd                                                      -> Must import before using pandas.
+7. pd.__version__                                                           -> Checking pandas verions.
+
+# Episode - 2 :
+
+1. pd.Series([1,2,3,4,5])                                                   -> Creating series using Series constructor.
+2. pd.Series(["vijay", 23, True])                                           -> You can use any type of data.
+3. pd.Series(age, index=['vijay','rajan','swathi','daddy'])                 -> You can set manually index using index property.
+4. series.loc["vijay"]                                                      -> It returns values using index
+5. series.iloc[1]                                                           -> It uses integer location.
+6. series[series>20]                                                        -> Filtering also supports.
+
+# Episode - 3 :
+
+students = {
+    "Names" : ["Vijay", "Swathi", "Dheeksha"],
+    "Age" : [25,26,2],
+    "District" : ["Chennai", "Nellai", "Nagercoil"]
+}
+
+1. pd.DataFrame(students)                                                   -> Creating dataframe.
+2. pd.DataFrame(students, index=["Person 1", "Person 2", "Person 3"])       -> Using index manually.
+3. df.loc["Person 1"]                                                       -> Value indexing.
+4. df.iloc[1]                                                               -> Integer indexing also supports.
+5. df["Gender"] = ["Boy", "Girl", "Girl"]                                   -> New field inserted.
+6. person4 = pd.DataFrame({
+    "Names" : "Devi",
+    "Age" : 27,
+    "District" : "Nagercoil",
+    "Gender" : "Girl"
+}, index=["Person 4"])
+
+df = pd.concat([df, person4])                                               -> New row inserted.
+7. persons = pd.DataFrame(
+    [{"Names" : "Deva", "Age" : 25, "District" : "Tenkasi", "Gender" : "Boy"},
+     {"Names" : "Deva", "Age" : 25, "District" : "Tenkasi", "Gender" : "Boy"}],
+    index=["Person 5", "Person 6"]
+)
+
+df = pd.concat([df, persons])                                               -> Multiple row inserted.
+8. df.sample(2)                                                             -> Randomly two data selected.
+9. df.info()                                                                -> Dataset information provided.
+10. df.describe()                                                           -> All statistics provided (count - 3.000000, mean - 17.666667, std - 13.576941, max, mean, min, etc).
+11. df.columns                                                              -> Columns displayed.
+12. df.shape                                                                -> Shape of dataframe displayed.
+13. df.dtypes                                                               -> Datatypes displayed.
+14. df.index                                                                -> Provides all index.
+
+# Episode - 4 :
+
+1. pd.read_csv("iris.csv")                                                  -> Reading commo separated files.
+2. pd.read_excel("iris.xslx")                                               -> Reading excel file.
+3. pd.read_json("iris.json")                                                -> Reading json file.
+4. pd.to_csv("iris.csv")                                                    -> Exporting as csv file.
+5. pd.to_excel("iris.xslx")                                                 -> Exporting as excel file.
+
+# Episode - 5 :
+
+1. df.loc["053d585Ab6b3159"]                                                -> specific customer data.
+2. df.loc["053d585Ab6b3159", ["First Name", "Last Name"]]                   -> Want to specific column for particular user.
+3. df.loc["053d585Ab6b3159":"e35426EbDEceaFF", ["First Name"]]              -> Range of customers.
+4. df.head()                                                                -> First 5 rows displayed.
+5. df.tail()                                                                -> Last 5 rows displayed.
+6. df.head(2)                                                               -> First 2 rows displayed.
+7. df.tail(2)                                                               -> Last 2 rows displayed.
+8. df["Customer Id"].head()                                                 -> Printing first 5 rows of Customer Id column.
+9. df[["Customer Id", "City"]].tail()                                       -> Printing last 5 rows of specified columns.
+10. df.to_string()                                                          -> Displayed all data.
+11. df.iloc[0]                                                              -> It provides first customer data.
+12. df.iloc[0:10:2, 1:3]                                                    -> From 0 to 10 with skips 2 records and first and second column only (here 3 is explicit).
+
+# Episode - 6 :
+
+1. fitlered = df[df["sepalLength"] > 5.0]                                   -> Filtered only sepalLength > 5.0.
+2. multi = df[(df["species"] == "setosa") & (df['sepalLength'] > 5.4)]      -> Multiple condition.
+
+# Episode - 7 :
+
+1. df.max(numeric_only=True)                                                -> Maximum.
+2. df.min(numeric_only=True)                                                -> Minumum.
+3. df.mean(numeric_only=True)                                               -> Average.
+4. df.sum(numeric_only=True)                                                -> Sumazation.
+5. df.median(numeric_only=True)                                             -> median.
+6. df.mode(numeric_only=True)                                               -> Mode.
+7. df.count(numeric_only=True)                                              -> Counting.
+8. df.std(numeric_only=True)                                                -> Standard deviation.
+9. df.var(numeric_only=True)                                                -> Variance.
+10. df["petalLength"].max()                                                 -> Finding max of Specified column.
+11. group = df.groupby("species")                                           -> Grouping by species column.
+12. group.mean()                                                            -> Finding mean with group by.
+13. group["sepalLength"].mean()                                             -> Finding mean with group by for specified column only.
+14. df.sort_values("sepalLength")                                           -> Sort ascending based on sepalLength.
+15. df.sort_values("petalLength", ascending = False)                        -> Sort descending based on petalLength.
+
+# Episode - 8 :
+
+1. df.isnull()                                                              -> Handling missing values.
+2. df.isnull().count()                                                      -> Counting the missing values.
+3. filtered = df.drop(columns=['sepalLength'])                              -> Dropped specific column.
+4. df.dropna(subset="sepalLength")                                          -> Drop null values with specified columns.
+5. fillDf = df.fillna({'sepalWidth' : 3.0, 'sepalLength' : 4.7})            -> Exchange data for NaN using fillna method.
+6. fillDf['species'] = fillDf['species'].replace({"virginica" : "Vijay"})   -> Replacing values.
+7. fillDf['species'] = fillDf['species'].str.lower()                        -> Standardizing.
+8. fillDf['sepalLength'] = fillDf['sepalLength'].astype(np.int64)           -> Type conversion.
+9. df = df.drop_duplicates()                                                -> Dropping duplicates.
+10. df = df.rename(columns={"species":"variety"})                           -> Renaming column name.
