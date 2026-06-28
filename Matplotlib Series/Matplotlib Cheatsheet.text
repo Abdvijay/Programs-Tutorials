@@ -1,0 +1,146 @@
+Matplotlib : 
+
+# 1. Definition :
+
+    -   Matplotlib is an open-source Python library used for creating static, animated, and interactive data visualizations.
+    -   It helps convert numerical data into graphical representations.
+
+# 2. Why do we use Matplotlib ?
+
+    Data Visualization
+    Trend Analysis
+    Comparing Data
+    Finding Patterns
+    Presenting Reports
+    Machine Learning Result Visualization
+
+# 3. Why is Visualization Important?
+
+    -   Visualization is the graphical representation of data.
+    -   Instead of reading thousands of numbers, graphs make information easier to understand.
+
+# 4. pyplot module ?
+
+    -   matplotlib.pyplot contains functions to create and customize different types of graphs such as 
+        line, bar, pie, scatter, and histogram.
+
+# 5. Figure - A Figure is the top-level container that holds all the plots.
+
+# 6. Axes - Axes represent the area where graphs are plotted inside a Figure.
+
+# 7. plt.legend() - To identify multiple datasets displayed on the same graph.
+
+# 8. plt.grid() - To improve graph readability by adding reference lines.
+
+# 9. plt.savefig() - To save the generated plot as an image file for reports or presentations.
+
+# 10. plt.show() - It renders and displays the graph on the screen.
+
+----------------------------------------------------------------------------------------------------------------------------
+
+# Episode - 1 :
+
+1. import matplotlib as mlt                             - Importing statement.
+2. mlt.__version__                                      - Checking version of matplotlib.
+3. import matplotlib.pyplot as plt                      - Using pyplot to plot the series.
+4. plt.plot(x,y)                                        - Plot x,y axis line chart.
+5. plt.show()                                           - Used to display the graph.
+6. plt.plot(y)                                          - If we didn't provide some axis it automatically provide another axis based on values.
+
+# Episode - 2 :
+
+1. plt.plot(years, subs, marker = ".")                  - Markers will define the plot marks.
+2. plt.plot(years, subs, marker = "o")                  - Bigger dot
+3. plt.plot(years, subs, marker = "v")                  - Increase triangle shape
+4. plt.plot(years, subs, marker = "^")                  - Just triange shape
+5. plt.plot(years, subs, marker = "<")                  - Upwise triangle
+6. plt.plot(years, subs, marker = ">")                  - Downwise triangle
+7. plt.plot(years, subs, marker = "8")                  - Bigger circle shape
+8. plt.plot(years, subs, marker = "s")                  - Box shape
+9. plt.plot(years, subs, marker = "p")                  - Pentagon shape
+10. plt.plot(years, subs, marker = "P")                 - Plus symbol
+11. plt.plot(years, subs, marker = "*")                 - Star shape
+12. plt.plot(years, subs, marker = "h")                 - Hexagon shape
+13. plt.plot(years, subs, marker = "H")                 - Same Hexagon slightly changed
+14. plt.plot(years, subs, marker = "D")                 - Big Diamond shape
+15. plt.plot(years, subs, marker = "d")                 - Lean diamond shape
+16. plt.plot(years, subs, marker = "x")                 - X shape
+17. markersize=10                                       - It used to define marker size.
+18. markerfacecolor='darkgrey'                          - It used to define marker color.
+19. markeredgecolor='red'                               - It used to define marker edge color.
+20. markeredgewidth=3                                   - It used to define marker edge width.
+21. linestyle="solid"                                   - It used to define line style. linestyle = ["dashed" , "dotted", "dashdot", "solid", "None"]
+22. linewidth=5                                         - It used to define line width.
+23. color='black'                                       - It used to define line color.
+24. plotPros = dict (
+        marker = "v", 
+        markersize=10, 
+        markerfacecolor = "darkgrey",
+        markeredgecolor = "red",
+        markeredgewidth = 3,
+        linestyle = "solid",
+        linewidth = 5,
+)
+plt.plot(years, subs, color = "black", **plotPros)
+plt.plot(years, subs1, color = "blue", **plotPros)      - You can properties like this and you can fit for any plot using keyword arguments.
+
+# Episode - 3 :
+
+1. plt.title("Subscriber Counts")                       - It used to define title for the graph.
+2. fontsize = 10,
+   fontweight = "bold",
+   color = "red",
+   fontfamily = "Algerian"                              - We can set the properties for all the plot title,xlabel,ylabel.
+3. plt.xlabel("Year wise")                              - Set the xlabel title.
+4. plt.ylabel("Subscribers count")                      - Set the ylabel title.
+5. plt.subplots_adjust(left=0.145, bottom=0.15)         - Adjusting xlabel,ylabel gaps between graph.
+6. plt.xticks(years)                                    - Sets the x axis points.
+7. plt.tick_params(axis="x", labelsize = 10, 
+                   labelcolor = "grey")                 - You can set the x axis ticks and properties.
+8. plt.tick_params(axis="x", labelsize = 10, 
+                   labelcolor = "grey")                 - You can set the y axis ticks and properties.
+9. plt.grid(axis="both", color = "brown", 
+            linestyle="dotted", linewidth=1)            - You can also show grid inside graph using this.
+10. plt.grid(axis="x")                                  - X axis grid alone.
+11. plt.grid(axis="y")                                  - Y axis grid alone.
+
+# Episode - 4 :
+
+1. plt.bar(x,y)                                         - Plot bar chart using x,y values.
+2. plt.barh(x,y)                                        - Horizontal bar.
+3. plt.pie(y)                                           - Pie chart.
+4. plt.pie(y, 
+        labels=x, 
+        autopct="%.2f%%",
+        colors = ["red", "blue", "green", "yellow"],
+        shadow=True,
+        explode=[0, 0.1, 0, 0.2],
+        startangle=90)                                  - Properties of pic chart.
+5. plt.figure(figsize=(15, 6))                          - Used to define figure size.
+6. plt.tight_layout()                                   - Used to display perfect layout.
+7. labels = x                                           - Place labels on chart.
+8. autopct="%.2f%%                                      - Display percent values formatable way.
+9. colors = ["red", "blue", "green", "yellow"]          - You can set any color.
+10. shadow = True                                       - It defines the shadow which is popout from chart.
+11. explode=[0, 0.1, 0, 0.2]                            - Popout Properties.
+12. startangle=90                                       - Angle of chart.
+
+# Episode - 5 :
+
+1. plt.scatter(x,y)                                     - Used to plot scatter graph.
+2. plt.legend()                                         - Displays labels for multiple datasets.
+3. property = {
+    "alpha" : 0.5, 
+    "edgecolor" : "black"
+}
+plt.scatter(x,y, **property, label = "Code IO")         - You set properties like this also.
+4. plt.hist(x, bins = 15, color="Red", **property)      - Used to plot histogram.
+
+# Episode - 6 :
+
+1. figure, axes = plt.subplots(2,2)                     - We can create no of graph in single figure.
+2. axes[0,0].plot(years,subs, color = "Red")            - First axes plotting.
+3. axes[0,1].plot(years, subs, color = "Blue")          - Second axes plotting.
+4. axes[1,0].bar(x,y, color = "Green")                  - Third axes plotting.
+5. axes[1,1].scatter(x,y, color = "skyblue")            - Fourth axes plotting.
+6. plt.savefig()                                        - To save the generated plot as an image file for reports or presentations.
