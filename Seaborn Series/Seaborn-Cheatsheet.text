@@ -1,0 +1,35 @@
+# Episode - 1 :
+
+1. import seaborn as sns                                - Importing seaborn before using it.
+2. sns.__version__                                      - Checking seaborn installed version.
+3. sns.get_dataset_names()                              - Defaultly seaborn provide inbuild dataset.
+4. sns.load_dataset('flights')                          - Loading the dataset from sns.
+
+# All Type of Plots :
+
+1. sns.jointplot(x='alcohol', y='speeding', data= cars, kind='reg')                         - Seaborn Series\Joint-Plot-Using-Regreession.jpg
+2. sns.jointplot(x='alcohol', y='speeding', data= cars, kind='kde')                         - Seaborn Series\Joint-Plot-Using-KDE.jpg
+3. sns.jointplot(x='alcohol', y='speeding', data= cars, kind='hex')                         - Seaborn Series\Joint-Plot-Using-Hexagon.jpg
+4. sns.kdeplot(cars['alcohol'])                                                             - Seaborn Series\KDE-Plot.jpg
+5. sns.pairplot(cars, hue='sex', palette = 'Blues')                                         - Seaborn Series\Pair-Plot.jpg 
+6. sns.rugplot(dataset)                                                                     - Seaborn Series\Rug-Plot.jpg
+7. sns.barplot(x='sex', y='total_bill', data=tips_df)                                       - Seaborn Series\Bar-Plot.jpg
+8. sns.countplot(x='sex', data=tips_df)                                                     - Seaborn Series\Count-Plot.jpg
+9. sns.boxplot(x='day', y='total_bill', data=tips_df, hue='sex')                            - Seaborn Series\Box-Plot.jpg
+10. sns.violinplot(x='day', y='total_bill', hue='sex', split=True, data=tips_df)            - Seaborn Series\Violin-Plot.jpg
+11. sns.swarmplot(x='day', y='total_bill', hue='sex',  data=tips_df)                        - Seaborn Series\Swarm-Plot.jpg
+12. sns.stripplot(x='day', y='total_bill', data=tips_df, jitter=True, hue='sex',dodge=True) - Seaborn Series\Strip-Plot.jpg
+13. sns.stripplot(x='day', y='total_bill', data=tips_df, jitter=True, hue='sex', dodge=True,
+                palette='autumn')                                                           - Seaborn Series\Strip-Plot-Using-Palette.jpg
+14. sns.heatmap(crashes_corr, cmap='Purples', annot=True)                                   - Seaborn Series\Heatmaps.jpg
+15. flights = flight_df.pivot_table(index='year', columns='month', values='passengers')
+    sns.heatmap(flights, cmap='Blues')                                                      - Seaborn Series\Heatmaps-Using-Pivot.jpg
+16. flights = flight_df.pivot_table(index='year', columns='month', values='passengers')
+    sns.clustermap(flights)                                                                 - Seaborn Series\Clustermaps.jpg
+17. iris_df = sns.load_dataset('iris')
+    iris_grid = sns.PairGrid(iris_df)
+    iris_grid.map_diag(plt.hist)
+    iris_grid.map_upper(sns.kdeplot)
+    iris_grid.map_lower(plt.scatter)                                                        - Seaborn Series\Pair-Grid.jpg
+18. sns.lmplot(x="total_bill", y="tip", data=tips_df, hue="sex", markers=["o", "<"],
+           scatter_kws={'s' : 20, 'edgecolor': 'black'})                                    - Seaborn Series\Regression-Plot.jpg
